@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NORATH - Accueil</title>
+  <meta name="description" content="NORATH Minecraft - serveur communautaire">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="home">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" id="serverName">NORATH</div>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="/" data-nav="home">Accueil</a>
+        <a href="/informations" data-nav="info">Informations</a>
+        <a href="/reglement" data-nav="rules">Reglement</a>
+        <a href="/map" rel="noopener">Map</a>
+        <a href="/telechargement" data-nav="download">Telechargement</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Serveur Minecraft NORATH</h1>
+      <p>
+        Un hub propre, une survie active, et une experience orientee communaute.
+        Le site reste disponible meme quand le serveur est hors ligne.
+      </p>
+      <div class="actions">
+        <button class="button strong" data-copy-ip="1">Copy IP</button>
+        <a class="button" id="twitchLink" data-twitch-link="1" href="https://www.twitch.tv/norath_1211" target="_blank" rel="noopener">Twitch de Norath</a>
+        <a class="button" href="/informations">Voir le statut</a>
+      </div>
+      <p class="kv" style="margin-top: 12px;">IP: <span class="join-ip">norath.fr</span></p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Statut en direct</h2>
+        <div class="status-wrap">
+          <span class="pill offline" id="statusPill">CHECKING</span>
+          <span class="pill offline" id="maintenancePill">CHECKING</span>
+        </div>
+        <p class="kv">Joueurs: <span id="playersOnline">0</span>/<span id="playersMax">0</span></p>
+        <p class="kv">MOTD: <span id="motdValue" class="motd-colored">-</span></p>
+        <p class="kv">Derniere verification: <span id="checkedAt">-</span></p>
+      </article>
+
+      <article class="card">
+        <h2>Nous rejoindre</h2>
+        <p>
+          Ouvre Minecraft Java, puis ajoute un serveur avec cette adresse.
+        </p>
+        <p class="kv">Adresse serveur: <span class="join-ip">norath.fr</span></p>
+        <div class="actions">
+          <button class="button" data-copy-ip="1">Copy IP</button>
+          <a class="button" href="/reglement">Lire le reglement</a>
+          <a class="button" href="/map" rel="noopener">Voir la map</a>
+        </div>
+      </article>
+
+      <article class="card hidden" id="twitchLiveCard">
+        <h2>Live Twitch en cours</h2>
+        <p>
+          Norath est actuellement en direct. Rejoins le stream ci-dessous.
+        </p>
+        <div class="twitch-frame-wrap">
+          <iframe
+            id="twitchEmbed"
+            class="twitch-frame"
+            title="Twitch Live"
+            allowfullscreen
+            scrolling="no"
+            loading="lazy">
+          </iframe>
+        </div>
+        <p class="kv">Titre: <span id="twitchLiveTitle"></span></p>
+        <p class="kv">Viewers: <span id="twitchLiveViewers">0</span></p>
+      </article>
+
+      <article class="card">
+        <h2>Nous contacter</h2>
+        <p>
+          Une question, un souci, un partenariat? Contacte-nous par email.
+        </p>
+        <p class="kv">Email: <span id="contactEmail">A venir</span></p>
+        <div class="actions">
+          <a class="button hidden" id="contactEmailLink" href="#">Envoyer un email</a>
+          <a class="button" data-twitch-link="1" href="https://www.twitch.tv/norath_1211" target="_blank" rel="noopener">Voir la chaine Twitch</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container">
+    NORATH.fr - Noir / Blanc edition
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

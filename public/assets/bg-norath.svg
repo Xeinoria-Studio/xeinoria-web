@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none">
+  <defs>
+    <linearGradient id="sky" x1="960" y1="0" x2="960" y2="1080" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#242424"/>
+      <stop offset="1" stop-color="#0B0B0B"/>
+    </linearGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+  <g opacity="0.38">
+    <rect x="0" y="700" width="220" height="380" fill="#141414"/>
+    <rect x="220" y="650" width="220" height="430" fill="#1B1B1B"/>
+    <rect x="440" y="590" width="220" height="490" fill="#111111"/>
+    <rect x="660" y="620" width="220" height="460" fill="#212121"/>
+    <rect x="880" y="540" width="220" height="540" fill="#161616"/>
+    <rect x="1100" y="610" width="220" height="470" fill="#262626"/>
+    <rect x="1320" y="560" width="220" height="520" fill="#171717"/>
+    <rect x="1540" y="630" width="220" height="450" fill="#232323"/>
+    <rect x="1760" y="690" width="160" height="390" fill="#111111"/>
+  </g>
+  <g opacity="0.23">
+    <rect x="210" y="430" width="110" height="110" fill="#EFEFEF"/>
+    <rect x="980" y="350" width="90" height="90" fill="#E5E5E5"/>
+    <rect x="1460" y="390" width="75" height="75" fill="#F3F3F3"/>
+  </g>
+  <g opacity="0.12">
+    <rect x="100" y="160" width="300" height="8" fill="#FFFFFF"/>
+    <rect x="720" y="120" width="220" height="8" fill="#FFFFFF"/>
+    <rect x="1280" y="170" width="260" height="8" fill="#FFFFFF"/>
+  </g>
+</svg>

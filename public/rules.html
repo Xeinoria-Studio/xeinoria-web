@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NORATH - Reglement</title>
+  <meta name="description" content="Reglement du serveur Minecraft NORATH">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="rules">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" id="serverName">NORATH</div>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="/" data-nav="home">Accueil</a>
+        <a href="/informations" data-nav="info">Informations</a>
+        <a href="/reglement" data-nav="rules">Reglement</a>
+        <a href="/telechargement" data-nav="download">Telechargement</a>
+        <a href="/map" rel="noopener">Map</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Reglement serveur</h1>
+      <p>
+        Version courte, lisible et claire. A adapter selon tes besoins moderation.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Base</h2>
+        <ol class="rules-list">
+          <li>Respect de tous les joueurs et du staff.</li>
+          <li>Pas de triche, exploit, xray, auto-clicker, macro abusive.</li>
+          <li>Pas de spam, pub non autorisee, ni flood vocal/texte.</li>
+          <li>Pas de grief volontaire ni vol hors mecaniques autorisees.</li>
+          <li>Le staff peut sanctionner selon contexte et gravite.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Construction et economie</h2>
+        <ol class="rules-list">
+          <li>Eviter les builds qui nuisent aux performances serveur.</li>
+          <li>Interdiction des fermes lag volontairement destructrices.</li>
+          <li>Les litiges economie se resolvent avec preuves (screens/logs).</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>PvP et comportement</h2>
+        <ol class="rules-list">
+          <li>Le harcelement est interdit, meme sans insulte explicite.</li>
+          <li>Le comportement toxique repete peut entrainer un ban.</li>
+          <li>Jouer proprement et respecter les decisions moderation.</li>
+        </ol>
+      </article>
+
+      <article class="card">
+        <h2>Contact</h2>
+        <p>
+          Pour un recours, prepare le contexte, la date et les preuves.
+        </p>
+        <div class="actions">
+          <a class="button" id="twitchLink" data-twitch-link="1" href="https://www.twitch.tv/norath_1211" target="_blank" rel="noopener">Twitch de Norath</a>
+          <a class="button" href="/informations">Etat du serveur</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container">
+    NORATH.fr - Reglement
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

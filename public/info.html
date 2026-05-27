@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NORATH - Informations</title>
+  <meta name="description" content="Informations et statut du serveur NORATH">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body data-page="info">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" id="serverName">NORATH</div>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="/" data-nav="home">Accueil</a>
+        <a href="/informations" data-nav="info">Informations</a>
+        <a href="/reglement" data-nav="rules">Reglement</a>
+        <a href="/telechargement" data-nav="download">Telechargement</a>
+        <a href="/map" rel="noopener">Map</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Informations serveur</h1>
+      <p>
+        Le statut est recupere automatiquement. Si le serveur est eteint, le site reste en ligne et affiche OFFLINE.
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Etat Minecraft</h2>
+        <div class="status-wrap">
+          <span class="pill offline" id="statusPill">CHECKING</span>
+          <span class="pill offline" id="maintenancePill">CHECKING</span>
+        </div>
+        <p class="kv">Joueurs connectes: <span id="playersOnline">0</span>/<span id="playersMax">0</span></p>
+        <p class="kv">MOTD detecte: <span id="motdValue" class="motd-colored">-</span></p>
+        <p class="kv">Derniere verification: <span id="checkedAt">-</span></p>
+      </article>
+
+      <article class="card">
+        <h2>Nous rejoindre</h2>
+        <p>
+          Lance Minecraft Java et connecte-toi directement avec l'adresse ci-dessous.
+        </p>
+        <p class="kv">IP serveur: <span class="join-ip">norath.fr</span></p>
+        <div class="actions">
+          <button class="button" data-copy-ip="1">Copy IP</button>
+          <a class="button" href="/reglement">Voir le reglement</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>Liens utiles</h3>
+        <div class="actions">
+          <a class="button" id="twitchLink" data-twitch-link="1" href="https://www.twitch.tv/norath_1211" target="_blank" rel="noopener">Twitch de Norath</a>
+          <a class="button" href="/map" rel="noopener">Carte du serveur survie</a>
+        </div>
+      </article>
+
+      <article class="card hidden" id="twitchLiveCard">
+        <h2>Live Twitch en cours</h2>
+        <div class="twitch-frame-wrap">
+          <iframe
+            id="twitchEmbed"
+            class="twitch-frame"
+            title="Twitch Live"
+            allowfullscreen
+            scrolling="no"
+            loading="lazy">
+          </iframe>
+        </div>
+        <p class="kv">Titre: <span id="twitchLiveTitle"></span></p>
+        <p class="kv">Viewers: <span id="twitchLiveViewers">0</span></p>
+      </article>
+
+      <article class="card">
+        <h2>Nous contacter</h2>
+        <p>Le mail de contact sera utilise pour les demandes support et moderation.</p>
+        <p class="kv">Email: <span id="contactEmail">A venir</span></p>
+        <div class="actions">
+          <a class="button hidden" id="contactEmailLink" href="#">Envoyer un email</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer class="container">
+    NORATH.fr - Informations en temps reel
+  </footer>
+
+  <script src="/app.js" defer></script>
+</body>
+</html>

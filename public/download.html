@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NORATH - Telechargement de la map survie</title>
+  <meta name="description" content="Telecharge la map du serveur Minecraft NORATH sous licence Creative Commons BY-NC-SA 4.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <style>
+    .cc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border: 1px solid #555;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.04);
+      text-decoration: none;
+      color: inherit;
+      font-family: 'IBM Plex Mono', monospace;
+      font-size: 13px;
+    }
+    .cc-badge img { height: 22px; display: block; }
+    .cc-badge:hover { background: rgba(255,255,255,0.08); }
+    .dl-card { border: 1px solid #444; border-radius: 8px; padding: 18px; margin-top: 16px; background: rgba(0,0,0,0.25); }
+    .dl-disabled { opacity: 0.55; }
+    .dl-row { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: baseline; }
+    .dl-meta { font-family: 'IBM Plex Mono', monospace; font-size: 12px; color: #b8b8b8; }
+    .dl-versions { list-style: none; padding: 0; margin: 8px 0 0; }
+    .dl-versions li { padding: 6px 0; border-top: 1px dashed #333; display: flex; gap: 10px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 12px; }
+    .pill-license { background: #2b2b2b; border: 1px solid #555; color: #ddd; padding: 4px 10px; border-radius: 999px; font-size: 11px; font-family: 'IBM Plex Mono', monospace; }
+    .lic-grid { display: grid; grid-template-columns: 1fr; gap: 18px; margin-top: 12px; }
+    @media (min-width: 760px) { .lic-grid { grid-template-columns: 1fr 1fr; } }
+    .lic-box { border: 1px solid #444; border-radius: 8px; padding: 14px 16px; background: rgba(0,0,0,0.2); }
+    .lic-box h3 { margin-top: 0; }
+    .lic-box ul { padding-left: 18px; }
+    .lic-box li { margin: 4px 0; }
+  </style>
+</head>
+<body data-page="download">
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand" id="serverName">NORATH</div>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="/" data-nav="home">Accueil</a>
+        <a href="/informations" data-nav="info">Informations</a>
+        <a href="/reglement" data-nav="rules">Reglement</a>
+        <a href="/map" rel="noopener">Map</a>
+        <a href="/telechargement" data-nav="download" aria-current="page">Telechargement</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <h1>Telecharger la map survie</h1>
+      <p>
+        La map du serveur XEINORIA (survie) est mise a disposition gratuitement,
+        sous licence Creative Commons BY-NC-SA 4.0. Overworld, Nether et End sont
+        inclus dans la meme archive.
+      </p>
+      <p>
+        <a class="cc-badge" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener license">
+          <img src="https://licensebuttons.net/l/by-nc-sa/4.0/88x31.png" alt="Creative Commons BY-NC-SA 4.0" loading="lazy">
+          <span>CC BY-NC-SA 4.0</span>
+        </a>
+      </p>
+    </section>
+
+    <section class="grid">
+      <article class="card">
+        <h2>Derniere version</h2>
+        <div id="dlLatestBox" class="dl-card">
+          <p>Chargement...</p>
+        </div>
+        <p class="dl-meta" id="dlGeneratedAt"></p>
+      </article>
+
+      <article class="card">
+        <h2>Contenu de l'archive</h2>
+        <p>
+          L'archive contient <strong>un seul dossier de monde</strong>,
+          <code>xeinoria-survie-world/</code>, deja converti au layout
+          <strong>Vanilla 26.1+</strong> selon la procedure officielle
+          PaperMC (dimensions sous <code>dimensions/minecraft/&lt;dim&gt;/</code>
+          et les 5 fichiers de migration places dans <code>data/minecraft/</code>).
+          Les trois dimensions (overworld, Nether, End) sont chargees
+          automatiquement par Vanilla et Paper 26.1+.
+        </p>
+        <p>
+          <strong>Installation :</strong> place <code>xeinoria-survie-world/</code>
+          dans <code>.minecraft/saves/</code> (solo) ou a la racine de ton
+          serveur avec <code>level-name=xeinoria-survie-world</code>.
+        </p>
+        <p>
+          <strong>Confidentialite :</strong> aucune donnee joueur n'est
+          incluse (advancements, inventaires, statistiques retires), et le
+          scoreboard est egalement retire.
+        </p>
+        <p class="dl-meta">
+          Verifie l'integrite : <code>sha256sum -c xeinoria-survie-map.zip.sha256</code>
+        </p>
+      </article>
+    </section>
+
+    <section class="card" style="margin-top:24px;">
+      <h2>Licence</h2>
+      <p>
+        Cette map est publiee sous
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener license">
+          Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Memes Conditions 4.0 International
+          (CC BY-NC-SA 4.0)
+        </a>.
+        Le fichier <code>LICENSE.txt</code> integre a chaque archive contient le texte complet
+        (en anglais puis en francais).
+      </p>
+
+      <div class="lic-grid">
+        <div class="lic-box">
+          <h3>English (summary)</h3>
+          <p>You are free to <strong>share</strong> and <strong>adapt</strong> this map under the following conditions:</p>
+          <ul>
+            <li><strong>Attribution (BY)</strong> - credit the XEINORIA team and link back to <a href="https://norath.fr/telechargement">https://norath.fr/telechargement</a>.</li>
+            <li><strong>NonCommercial (NC)</strong> - no commercial use: no selling, no paid server, no pay-to-access, no monetized derivative.</li>
+            <li><strong>ShareAlike (SA)</strong> - any derivative must be released under the same CC BY-NC-SA 4.0 license.</li>
+          </ul>
+          <p>Full text: <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode" target="_blank" rel="noopener">creativecommons.org/licenses/by-nc-sa/4.0/legalcode</a></p>
+        </div>
+        <div class="lic-box">
+          <h3>Francais (resume)</h3>
+          <p>Vous etes libre de <strong>partager</strong> et d'<strong>adapter</strong> cette map dans les conditions suivantes :</p>
+          <ul>
+            <li><strong>Attribution (BY)</strong> - crediter l'equipe XEINORIA et inclure un lien vers <a href="https://norath.fr/telechargement">https://norath.fr/telechargement</a>.</li>
+            <li><strong>Pas d'Utilisation Commerciale (NC)</strong> - pas de revente, pas de serveur payant, pas de pay-to-access, pas de derivee monetisee.</li>
+            <li><strong>Partage dans les Memes Conditions (SA)</strong> - toute oeuvre derivee doit etre publiee sous la meme licence CC BY-NC-SA 4.0.</li>
+          </ul>
+          <p>Texte complet : <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/legalcode.fr" target="_blank" rel="noopener">creativecommons.org/licenses/by-nc-sa/4.0/legalcode.fr</a></p>
+        </div>
+      </div>
+
+      <p class="dl-meta" style="margin-top:14px;">
+        Citation recommandee : <em>"XEINORIA - Map Survie par l'equipe XEINORIA (https://norath.fr/telechargement)
+        est mise a disposition selon les termes de la licence CC BY-NC-SA 4.0."</em>
+      </p>
+    </section>
+  </main>
+
+  <footer class="container">
+    NORATH.fr - Map survie sous CC BY-NC-SA 4.0
+  </footer>
+
+  <script src="/app.js" defer></script>
+  <script>
+    (function () {
+      function fmtBytes(n) {
+        if (!n || n < 0) return '0 B';
+        var u = ['B','KB','MB','GB','TB']; var i = 0; var v = n;
+        while (v >= 1024 && i < u.length - 1) { v /= 1024; i++; }
+        return v.toFixed(v >= 100 ? 0 : (v >= 10 ? 1 : 2)) + ' ' + u[i];
+      }
+      function fmtDate(ts) {
+        if (!ts) return '';
+        try { return new Date(ts * 1000).toLocaleString('fr-FR'); } catch(e) { return ''; }
+      }
+      function escapeHtml(s) {
+        return String(s).replace(/[&<>"']/g, function(c){
+          return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[c];
+        });
+      }
+      function render(manifest) {
+        var box = document.getElementById('dlLatestBox');
+        var gen = document.getElementById('dlGeneratedAt');
+
+        if (!manifest.enabled) {
+          box.classList.add('dl-disabled');
+          box.innerHTML = '<p><strong>Telechargement temporairement desactive.</strong></p>'
+            + '<p class="dl-meta">L\'equipe NORATH a mis le telechargement en pause. Reviens plus tard.</p>';
+          return;
+        }
+
+        if (!manifest.latest) {
+          box.classList.add('dl-disabled');
+          box.innerHTML = '<p><strong>Aucune version disponible pour l\'instant.</strong></p>'
+            + '<p class="dl-meta">La prochaine sauvegarde sera publiee ici tres bientot. Repasse plus tard.</p>';
+          return;
+        }
+
+        var latestEntry = (manifest.versions || []).filter(function(v){ return v.file === manifest.latest; })[0];
+        var size = latestEntry ? fmtBytes(latestEntry.size) : '';
+        var when = latestEntry ? fmtDate(latestEntry.mtime) : '';
+        var sha  = latestEntry ? latestEntry.sha256 : '';
+
+        var href = '/download/survie/latest';
+
+        box.innerHTML =
+          '<div class="dl-row" style="margin-bottom:10px;">'
+          + '<span class="pill-license">' + escapeHtml(manifest.license) + '</span>'
+          + '</div>'
+          + '<div class="actions">'
+          + '<button class="button strong" id="dlBtn" type="button">Preparer le telechargement' + (size ? ' (' + escapeHtml(size) + ')' : '') + '</button>'
+          + '</div>'
+          + '<p class="dl-meta" id="dlMsg" style="margin-top:10px;">Cliquez sur le bouton ci-dessus, puis patientez 3 secondes pour la verification anti-bot.</p>'
+          + (when ? '<p class="dl-meta">Mise en ligne : ' + escapeHtml(when) + '</p>' : '')
+          + (sha ? '<p class="dl-meta">SHA256 : <code style="word-break:break-all;">' + escapeHtml(sha) + '</code></p>' : '');
+
+        // Captcha workflow : POST /api/dl-token → wait min_wait_ms → redirect with ?t=token
+        var btn = document.getElementById('dlBtn');
+        var msg = document.getElementById('dlMsg');
+        btn.addEventListener('click', function() {
+          btn.disabled = true;
+          msg.textContent = 'Verification en cours...';
+          fetch('/api/dl-token', { method: 'POST', headers: {'Content-Type':'application/json'} })
+            .then(function(r){ return r.json(); })
+            .then(function(j){
+              if (!j.ok || !j.token) { throw new Error('token error'); }
+              var wait = j.min_wait_ms || 3000;
+              var remain = Math.ceil(wait/1000);
+              btn.textContent = 'Patientez ' + remain + 's...';
+              var iv = setInterval(function(){
+                remain -= 1;
+                if (remain > 0) { btn.textContent = 'Patientez ' + remain + 's...'; }
+                else { clearInterval(iv); }
+              }, 1000);
+              setTimeout(function() {
+                btn.textContent = 'Telechargement en cours';
+                msg.textContent = 'Le telechargement va demarrer. Si rien ne se passe, verifiez vos popups.';
+                window.location.href = href + '?t=' + encodeURIComponent(j.token);
+              }, wait + 100);
+            })
+            .catch(function(){
+              btn.disabled = false;
+              btn.textContent = 'Reessayer';
+              msg.textContent = 'Erreur de verification. Reessayez ou contactez un administrateur.';
+            });
+        });
+
+        if (manifest.generated_at) {
+          gen.textContent = 'Manifest genere le ' + fmtDate(manifest.generated_at);
+        }
+      }
+
+      fetch('/api/download-manifest', { headers: { 'Accept':'application/json' }})
+        .then(function(r){ return r.json(); })
+        .then(render)
+        .catch(function(){
+          document.getElementById('dlLatestBox').innerHTML = '<p>Impossible de charger les informations de telechargement.</p>';
+        });
+
+      // Si l'utilisateur revient via Retour (depuis page d'erreur VPN/ban),
+      // le bfcache restaure le bouton dans l'etat "Telechargement en cours"
+      // et disabled. On force un reload propre pour repartir d'un etat neuf.
+      window.addEventListener('pageshow', function(e) {
+        if (e.persisted) {
+          window.location.reload();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
