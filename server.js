@@ -47,9 +47,9 @@ const DOWNLOAD_TOKEN_SECRET_PATH = process.env.DOWNLOAD_TOKEN_SECRET_PATH || pat
 const DOWNLOAD_ADMIN_IPS_PATH = process.env.DOWNLOAD_ADMIN_IPS_PATH || path.join(DOWNLOAD_SERVE_DIR, '.dl_admin_ips.json');
 const DOWNLOAD_ADMIN_IPS_TTL_MS = 7 * 24 * 3600 * 1000; // 7 jours
 const DOWNLOAD_RESTRICTED_IPS_PATH = process.env.DOWNLOAD_RESTRICTED_IPS_PATH || path.join(DOWNLOAD_SERVE_DIR, '.dl_restricted_ips.json');
-const DOWNLOAD_LITEBANS_DB = process.env.DOWNLOAD_LITEBANS_DB || '';
-const DOWNLOAD_LITEBANS_USER = process.env.DOWNLOAD_LITEBANS_USER || '';
-const DOWNLOAD_LITEBANS_PASS = process.env.DOWNLOAD_LITEBANS_PASS || '';
+const DOWNLOAD_LITEBANS_DB = process.env.DOWNLOAD_LITEBANS_DB || 'minecraft';
+const DOWNLOAD_LITEBANS_USER = process.env.DOWNLOAD_LITEBANS_USER || 'user';
+const DOWNLOAD_LITEBANS_PASS = process.env.DOWNLOAD_LITEBANS_PASS || 'password';
 
 // Suivi des téléchargements actifs
 // Map<id, { ip, filename, startTime, bytesTransferred, totalBytes }>
