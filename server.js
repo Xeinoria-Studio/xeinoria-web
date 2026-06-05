@@ -183,7 +183,7 @@ async function isVpnIp(ip) {
 
 // Vérifie si une IP est ban active dans LiteBans (via mysql CLI subprocess)
 function isIpBanned(ip) {
-  if (!ip) return null;
+  if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ip)) return null;
   try {
     const out = execFileSync('mysql', [
       '--batch', '--skip-column-names',
