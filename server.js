@@ -1290,14 +1290,37 @@ app.post('/api/dl-token', express.json(), (req, res) => {
     || '';
   const ip = rawIp.trim().replace(/^::ffff:/, '');
   if (!ip) return res.status(400).json({ ok: false });
+
+  // Si le client fournit son IPv4 (récupérée via api4.ipify.org côté navigateur),
+  // on l'utilise pour la vérification LiteBans (cas visiteur en IPv6 dont MC est en IPv4).
+  // Validation stricte pour éviter tout abus.
+  let banCheckIp = ip;
+  const clientIpv4 = (req.body && typeof req.body.client_ipv4 === 'string')
+    ? req.body.client_ipv4.trim()
+    : '';
+  if (/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(clientIpv4)) {
+    const parts = clientIpv4.split('.').map(Number);
+    if (parts.every(n => n >= 0 && n <= 255)) {
+      banCheckIp = clientIpv4;
+    }
+  }
+
   // Refuse de generer un token pour une IP restreinte
   const restriction = isRestricted(ip);
   if (restriction) {
     return res.status(403).json({ ok: false, error: 'restricted', until_ms: restriction.until_ms || 0, reason: restriction.reason || '' });
   }
+  // Vérifie LiteBans avec l'IPv4 fournie par le client si disponible
+  const cfg = loadDlConfig();
+  if (cfg.block_banned) {
+    const banReason = isIpBanned(banCheckIp);
+    if (banReason !== null) {
+      return res.status(403).json({ ok: false, error: 'banned', reason: banReason });
+    }
+  }
   const ts = Date.now();
   const token = signToken(ts, ip);
-  res.json({ ok: true, token, ts, min_wait_ms: loadDlConfig().captcha_min_ms });
+  res.json({ ok: true, token, ts, min_wait_ms: cfg.captcha_min_ms });
 });
 
 app.post('/api/dl-cfg', express.json({ limit: '8kb' }), (req, res) => {

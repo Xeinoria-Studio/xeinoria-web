@@ -213,7 +213,15 @@
         btn.addEventListener('click', function() {
           btn.disabled = true;
           msg.textContent = 'Verification en cours...';
-          fetch('/api/dl-token', { method: 'POST', headers: {'Content-Type':'application/json'} })
+          // Récupère l'IPv4 du client via un service public IPv4-only (silencieux si échec)
+          var ipv4Promise = fetch('https://api4.ipify.org?format=json', { signal: AbortSignal.timeout(3000) })
+            .then(function(r) { return r.json(); })
+            .then(function(j) { return (typeof j.ip === 'string') ? j.ip : ''; })
+            .catch(function() { return ''; });
+          ipv4Promise.then(function(clientIpv4) {
+            var body = {};
+            if (clientIpv4) body.client_ipv4 = clientIpv4;
+            fetch('/api/dl-token', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify(body) })
             .then(function(r){ return r.json(); })
             .then(function(j){
               if (!j.ok || !j.token) { throw new Error('token error'); }
@@ -236,6 +244,7 @@
               btn.textContent = 'Reessayer';
               msg.textContent = 'Erreur de verification. Reessayez ou contactez un administrateur.';
             });
+          }); // fin ipv4Promise.then
         });
 
         if (manifest.generated_at) {
