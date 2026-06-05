@@ -123,8 +123,8 @@ function getTokenSecret() {
 }
 const TOKEN_SECRET = getTokenSecret();
 
-function signToken(ts, ip) {
-  const payload = `${ts}|${ip}`;
+function signToken(ts, ip, clientIpv4) {
+  const payload = clientIpv4 ? `${ts}|${ip}|${clientIpv4}` : `${ts}|${ip}`;
   const sig = crypto.createHmac('sha256', TOKEN_SECRET).update(payload).digest('base64url');
   return Buffer.from(payload).toString('base64url') + '.' + sig;
 }
@@ -144,7 +144,10 @@ function verifyToken(token, ip, maxAgeMs) {
   const sep = payload.indexOf('|');
   if (sep <= 0) return null;
   const tsStr = payload.slice(0, sep);
-  const tokIp = payload.slice(sep + 1);
+  const rest = payload.slice(sep + 1);
+  const sep2 = rest.indexOf('|');
+  const tokIp = sep2 >= 0 ? rest.slice(0, sep2) : rest;
+  const tokClientIpv4 = sep2 >= 0 ? rest.slice(sep2 + 1) : '';
   const ts = parseInt(tsStr, 10);
   if (!Number.isFinite(ts)) return null;
   const age = Date.now() - ts;
@@ -154,7 +157,7 @@ function verifyToken(token, ip, maxAgeMs) {
   // du token (POST /api/dl-token) et son utilisation (GET /download/...).
   // La securite reste assuree par : HMAC, TTL court (captcha_max_ms),
   // single-use (burnToken) et delai mini anti-bot (captcha_min_ms).
-  return { ts, age, tokIp, ipChanged: tokIp !== ip };
+  return { ts, age, tokIp, tokClientIpv4, ipChanged: tokIp !== ip };
 }
 
 // Cache VPN check (Map<ip, { proxy, hosting, expiresAt }>)
@@ -982,6 +985,12 @@ app.get('/dl/survie/latest', async (req, res) => {
   if (verif.ipChanged) {
     console.log(`[dl] token ip-changed signed=${verif.tokIp} used=${ip} (autorise, mobile/happy-eyeballs)`);
   }
+  // Si l'IP de connexion est IPv6 et que le token contient une IPv4 client
+  // (fournie via ipify lors de la génération du token), on utilise l'IPv4
+  // pour le suivi dans activeDownloads (affiché dans le GUI Skript).
+  const displayIp = (verif.tokClientIpv4 && /^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(verif.tokClientIpv4))
+    ? verif.tokClientIpv4
+    : ip;
   if (verif.age < cfg.captcha_min_ms) {
     return sendDlError(res, 429, 'Patiente un instant', 'Tu vas trop vite ! Un court delai anti-bot doit s\'ecouler avant de pouvoir telecharger la map.', true);
   }
@@ -1080,7 +1089,7 @@ app.get('/dl/survie/latest', async (req, res) => {
 
   // bytesTransferred reflete la position absolue dans le fichier pour que
   // le pourcentage de progression reste correct meme apres une reprise.
-  const entry = { ip, filename: realFilename, startTime: Date.now(), bytesTransferred: rangeStart, totalBytes, cancel: null, token, lastProgressAt: Date.now(), adminCancel: false, disabledCancel: false, isResume: isPartial };
+  const entry = { ip: displayIp, filename: realFilename, startTime: Date.now(), bytesTransferred: rangeStart, totalBytes, cancel: null, token, lastProgressAt: Date.now(), adminCancel: false, disabledCancel: false, isResume: isPartial };
   activeDownloads.set(id, entry);
   _bumpDlVersion();
   // Brule le token : un retry automatique apres FIN normale doit re-passer
@@ -1319,7 +1328,7 @@ app.post('/api/dl-token', express.json(), (req, res) => {
     }
   }
   const ts = Date.now();
-  const token = signToken(ts, ip);
+  const token = signToken(ts, ip, banCheckIp !== ip ? banCheckIp : '');
   res.json({ ok: true, token, ts, min_wait_ms: cfg.captcha_min_ms });
 });
 
